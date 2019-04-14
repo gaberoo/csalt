@@ -2,6 +2,10 @@
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_math.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 double logit1(double p);
 double logit1_log(double logp);
 void logit(size_t n, const double* p, double* logitp);
@@ -24,4 +28,9 @@ void logit_scale_vec(size_t n, const double* x, const double* logs, double* xout
 
 double prop_step(size_t n, const double* y, double* ynew, size_t i, 
                  double h, gsl_rng* rng);
+
+#ifdef __cplusplus
+}
+#endif
+
 
