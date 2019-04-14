@@ -26,4 +26,8 @@ void log_q(size_t n, const double* x, double* logq) {
   for (size_t i = 0; i < n; ++i) logq[i] = log_q1(x[i]);
 }
 
+double p1(double x) { return exp(log_p1(x)); }
 
+void p(size_t n, const double* x, double* p) {
+  for (size_t i = 0; i < n; ++i) p[i] = p1(x[i]);
+}

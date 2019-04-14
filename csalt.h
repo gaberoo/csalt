@@ -9,8 +9,11 @@ void logit_log(size_t n, const double* logp, double* logitp);
 
 double log_p1(double x);
 double log_q1(double x);
+double p1(double x);
+
 void log_p(size_t n, const double* x, double* logp);
 void log_q(size_t n, const double* x, double* logq);
+void p(size_t n, const double* x, double* logp);
 
 double logit_sum(size_t n, const double* x);
 double logit_sum_drop1(size_t n, const double* x, size_t i);
