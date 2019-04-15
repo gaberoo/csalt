@@ -16,7 +16,7 @@ clean:
 
 libcsalt.a: $(C_OBJ)
 	ar rcs libcsalt.a $^
-
+	
 .c.o: $<
 	$(CC) $(CFLAGS) -c $<
 
