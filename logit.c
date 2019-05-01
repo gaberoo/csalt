@@ -29,3 +29,10 @@ void logit(size_t n, const double* p, double* logitp) {
 void logit_log(size_t n, const double* logp, double* logitp) {
   for (size_t i = 0; i < n; ++i) logitp[i] = logit1_log(logp[i]);
 }
+
+double log_sum_exp(double logu, double logv) {
+  double max = (logu > logv) ? logu : logv;
+  return max + log(exp(u-max)) + log(exp(v-max));
+}
+
+

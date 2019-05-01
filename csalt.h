@@ -29,6 +29,8 @@ void logit_scale_vec(size_t n, const double* x, const double* logs, double* xout
 double prop_step(size_t n, const double* y, double* ynew, size_t i, 
                  double h, gsl_rng* rng);
 
+double log_sum_exp(double logu, double logv);
+
 #ifdef __cplusplus
 }
 #endif
