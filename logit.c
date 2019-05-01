@@ -13,13 +13,13 @@
  */
 
 double logit1(double p) {
-  if (p < 0.5) return log(p) - gsl_log1p(-p);
+  if (p < 0.5) return log(p) - log1p(-p);
   else return log(p/(1.0-p));
 }
 
 double logit1_log(double logp) {
-  if (logp < 0.5) return logp - gsl_log1p(-exp(logp));
-  else return logp - log(-gsl_expm1(logp));
+  if (logp < 0.5) return logp - log1p(-exp(logp));
+  else return logp - log(-expm1(logp));
 }
 
 void logit(size_t n, const double* p, double* logitp) {

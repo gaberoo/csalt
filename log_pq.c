@@ -9,13 +9,13 @@
  */
 
 double log_p1(double x) {
-  if (x < 0.0) return -gsl_log1p(exp(x)) + x;
-  else return -gsl_log1p(1.0/exp(x));
+  if (x < 0.0) return -log1p(exp(x)) + x;
+  else return -log1p(1.0/exp(x));
 }
 
 double log_q1(double x) {
-  if (x < 0.0) return -gsl_log1p(exp(x));
-  else return -gsl_log1p(1.0/exp(x)) - x;
+  if (x < 0.0) return -log1p(exp(x));
+  else return -log1p(1.0/exp(x)) - x;
 }
 
 void log_p(size_t n, const double* x, double* logp) {
@@ -30,4 +30,5 @@ double p1(double x) { return exp(log_p1(x)); }
 
 void p(size_t n, const double* x, double* p) {
   for (size_t i = 0; i < n; ++i) p[i] = p1(x[i]);
+
 }
