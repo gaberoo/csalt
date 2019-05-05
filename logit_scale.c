@@ -36,7 +36,7 @@ double logit_scale(double x, double logs) {
   // ev+eumo and handles the special case of u large enough to make eumo=Inf.
 
   if (eumo == INFINITY) {
-    l2 = MAX(u,v) + log1p(exp(-fabs(u-v)));
+    l2 = ((u > v) ? u : v) + log1p(exp(-fabs(u-v)));
   } else {
     l2 = log(eumo+ev);
   }

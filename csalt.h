@@ -1,3 +1,6 @@
+#ifndef __CSALT_H__
+#define __CSALT_H__
+
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -5,8 +8,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define MAX(u,v) ((u > v) ? u : v)
 
 typedef double (*logit_update_t)(double x);
 
@@ -40,4 +41,4 @@ double prop_step(size_t n, const double* y, double* ynew, size_t i, logit_update
 }
 #endif
 
-
+#endif /* __CSALT_H__ */
