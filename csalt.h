@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-typedef double (*logit_update_t)(double x);
+typedef double (*logit_update_t)(double x, const void* pars);
 
 size_t max_index(size_t n, const double* x);
 
@@ -35,7 +35,8 @@ double logit_scale(double x, double logs);
 void logit_scale_const(size_t n, const double* x, double logs, double* xout);
 void logit_scale_vec(size_t n, const double* x, const double* logs, double* xout);
 
-double prop_step(size_t n, const double* y, double* ynew, size_t i, logit_update_t fun);
+double prop_step(size_t n, const double* y, double* ynew, size_t i, 
+                 logit_update_t fun, const void* fpars);
 
 #ifdef __cplusplus
 }

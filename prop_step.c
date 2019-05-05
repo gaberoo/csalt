@@ -6,11 +6,11 @@
  */
 
 double prop_step(size_t n, const double* y, double* ynew, size_t i, 
-                 logit_update_t fun) 
+                 logit_update_t fun, const void* fpars) 
 {
   // perturb ith logit
   memcpy(ynew,y,n*sizeof(double));
-  ynew[i] = fun(y[i]);
+  ynew[i] = fun(y[i],fpars);
   
   // Calculate logp and logq for old and new draws
   double log_pi_old = log_p1(y[i]);

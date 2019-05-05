@@ -4,6 +4,9 @@
 #include <cmath>
 #include <numeric>
 
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_randist.h>
+
 extern "C" {
 #include "../csalt.h"
 }
@@ -50,9 +53,24 @@ TEST_CASE("Logit", "[calc]") {
   }
 }
 
+typedef struct {
+  gsl_rng* rng;
+  double h;
+} fun_pars;
+
+double update_fun(double x, const void* pars) {
+  fun_pars* p = (fun_pars*) pars;
+  return x + gsl_ran_gaussian(p->rng,p->h);
+}
+
 TEST_CASE("stepping", "[mcmc]") {
-  gsl_rng* rng = gsl_rng_alloc(gsl_rng_taus2);
-  gsl_rng_set(rng,1987);
+  fun_pars fp;
+  fp.rng = gsl_rng_alloc(gsl_rng_taus2);
+  fp.h = 3.0;
+
+  REQUIRE( fp.h == 3.0 );
+
+  gsl_rng_set(fp.rng,1987);
 
   double p[] = { 0.1, 0.2, 0.7 };
   double logp[] = { log(0.1), log(0.2), log(0.7) } ;
@@ -60,7 +78,7 @@ TEST_CASE("stepping", "[mcmc]") {
 
   SECTION("prop_step") {
     double logitpnew[3];
-    double dbt = prop_step(3,logitp,logitpnew,1,3.0,rng);
+    double dbt = prop_step(3,logitp,logitpnew,1,&update_fun,&fp);
 
     REQUIRE( logitpnew[0] == Approx(-1.9859) );
     REQUIRE( logitpnew[1] == Approx(-3.332177) );
@@ -73,5 +91,5 @@ TEST_CASE("stepping", "[mcmc]") {
     REQUIRE( dbt == Approx(dbt2) );
   }
 
-  gsl_rng_free(rng);
+  gsl_rng_free(fp.rng);
 }
