@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <gsl/gsl_math.h>
-
 #include "csalt.h"
 
 /*
@@ -27,7 +24,7 @@ double logit_scale(double x, double logs) {
   }
 
   double ev = exp(v);         // ev is either exp(-(x+l)) or exp(-l) ...
-  double eumo = gsl_expm1(u); // ... and eumo is the other choice minus one
+  double eumo = expm1(u); // ... and eumo is the other choice minus one
  
   // Return value is to be -log(ev+eumo).
   // Next two lines choose among three ways to calculate it.
@@ -39,14 +36,14 @@ double logit_scale(double x, double logs) {
   // ev+eumo and handles the special case of u large enough to make eumo=Inf.
 
   if (eumo == INFINITY) {
-    l2 = GSL_MAX(u,v) + gsl_log1p(exp(-fabs(u-v)));
+    l2 = MAX(u,v) + log1p(exp(-fabs(u-v)));
   } else {
     l2 = log(eumo+ev);
   }
   
   // Second, if ev dominates ev+eumo, then result is -v plus a quantity not far from zero.
   if (v > log(2.0*fabs(eumo))) {
-    out = -(v + gsl_log1p(eumo/ev));
+    out = -(v + log1p(eumo/ev));
   } else {
     out = -l2;
   }

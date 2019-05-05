@@ -1,9 +1,3 @@
-
-#include <string.h>
-
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
-
 #include "csalt.h"
 
 /*
@@ -11,12 +5,12 @@
  * draws a new logit-scaled simplex point.
  */
 
-double prop_step(size_t n, const double* y, double* ynew, size_t i, double h, 
-                 gsl_rng* rng) 
+double prop_step(size_t n, const double* y, double* ynew, size_t i, 
+                 logit_update_t fun) 
 {
   // perturb ith logit
   memcpy(ynew,y,n*sizeof(double));
-  ynew[i] += gsl_ran_gaussian(rng,h);
+  ynew[i] = fun(y[i]);
   
   // Calculate logp and logq for old and new draws
   double log_pi_old = log_p1(y[i]);

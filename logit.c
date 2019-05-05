@@ -1,6 +1,4 @@
-
-#include <stdlib.h>
-#include <gsl/gsl_math.h>
+#include "csalt.h"
 
 /* 
  * Return logit of probabilities p. If logp = true, the first argument 

@@ -1,9 +1,5 @@
 CC=clang
-CXX=clang++
-
-CFLAGS=-g -Wall -O3 $(shell gsl-config --cflags)
-CXXFLAGS=$(CFLAGS) -std=c++14
-LDFLAGS=$(shell gsl-config --libs-without-cblas) --framework Accelerate
+CFLAGS=-g -Wall -O3
 
 C_SRC = $(wildcard *.c)
 C_OBJ = $(C_SRC:%.c=%.o)

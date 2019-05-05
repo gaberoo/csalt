@@ -1,6 +1,4 @@
-
-#include <stdlib.h>
-#include <gsl/gsl_math.h>
+#include "csalt.h"
 
 /*
  * For x = logit(p), this function returns log(p) and log(1-p). 
