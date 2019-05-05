@@ -32,7 +32,7 @@ void logit_log(size_t n, const double* logp, double* logitp) {
 
 double log_sum_exp(double logu, double logv) {
   double max = (logu > logv) ? logu : logv;
-  return max + log(exp(u-max)) + log(exp(v-max));
+  return max + log(exp(logu-max)) + log(exp(logv-max));
 }
 
 
