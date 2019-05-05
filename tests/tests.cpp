@@ -53,10 +53,7 @@ TEST_CASE("Logit", "[calc]") {
   }
 }
 
-typedef struct {
-  gsl_rng* rng;
-  double h;
-} fun_pars;
+typedef struct { gsl_rng* rng; double h; } fun_pars;
 
 double update_fun(double x, const void* pars) {
   fun_pars* p = (fun_pars*) pars;
@@ -64,8 +61,10 @@ double update_fun(double x, const void* pars) {
 }
 
 TEST_CASE("stepping", "[mcmc]") {
+  gsl_rng* rng = gsl_rng_alloc(gsl_rng_taus2);
+
   fun_pars fp;
-  fp.rng = gsl_rng_alloc(gsl_rng_taus2);
+  fp.rng = rng;
   fp.h = 3.0;
 
   REQUIRE( fp.h == 3.0 );
@@ -91,5 +90,5 @@ TEST_CASE("stepping", "[mcmc]") {
     REQUIRE( dbt == Approx(dbt2) );
   }
 
-  gsl_rng_free(fp.rng);
+  gsl_rng_free(rng);
 }
